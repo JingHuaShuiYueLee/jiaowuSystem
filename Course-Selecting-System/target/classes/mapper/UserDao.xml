@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zxc.dao.UserDao">
+
+    <select id="selectStuById" resultType="Student" parameterType="int">
+        SELECT * FROM Student WHERE stuId=#{id}
+    </select>
+
+    <select id="selectTeaById" resultType="Teacher" parameterType="int">
+        SELECT * FROM Teacher WHERE teaId=#{id}
+    </select>
+
+    <select id="selectAdminById" resultType="Admin" parameterType="int">
+        select * from Admin where adminId=#{adminId}
+    </select>
+
+    <update id="updateStuPass" parameterType="Student">
+        UPDATE Student SET
+        stuPass=#{stuPass}
+        WHERE stuId=#{stuId}
+    </update>
+
+    <update id="updateTeaPass" parameterType="Teacher">
+        UPDATE Teacher SET
+        teaPass=#{teaPass}
+        WHERE teaId=#{teaId}
+    </update>
+    <update id="updateAdminPass" parameterType="Admin">
+        update Admin set
+        adminPass=#{adminPass}
+        where adminId=#{adminId}
+    </update>
+    <select id="queryAllTeacher" resultType="Teacher">
+        SELECT * FROM Teacher where isWork=1
+    </select>
+    <select id="queryAllStudent" resultType="Student">
+        SELECT * FROM Student
+    </select>
+    <select id="queryInsNameById" parameterType="int" resultType="String">
+        select insName from institution where insId=#{insId}
+    </select>
+    <insert id="insertStudent" parameterType="Student">
+        insert into student (stuId,stuName,stuPass,insId,insName,sex)
+        values (#{stuId},#{stuName},#{stuPass},#{insId},#{insName},#{sex})
+    </insert>
+    <delete id="removeStudent" parameterType="int">
+        delete from Student where stuId=#{id}
+    </delete>
+    <update id="updateStudent" parameterType="Student">
+        update Student set
+        stuName=#{stuName},
+        sex=#{sex},
+        stuPass=#{stuPass},
+        insId=#{insId},
+        insName=#{insName}
+        where stuId=#{stuId}
+    </update>
+    <insert id="insertTeacher" parameterType="Teacher">
+        insert into teacher (teaId,teaName,teaPass,sex,pId,isWork)
+        values (#{teaId},#{teaName},#{teaPass},#{sex},#{pId},1)
+    </insert>
+    <update id="deleteTeacher" parameterType="int">
+        update teacher set isWork=0 where teaId=#{teaId}
+    </update>
+    <update id="updateTeacher" parameterType="Teacher">
+        update teacher set teaName=#{teaName},teaPass=#{teaPass},pId=#{pId} where teaId=#{teaId}
+    </update>
+</mapper>
